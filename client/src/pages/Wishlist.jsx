@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/CartContext";
 import "./Wishlist.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Wishlist() {
   const { addToCart } = useCart();
@@ -22,7 +23,7 @@ function Wishlist() {
 
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/wishlist/${userId}`
+          `${API_URL}/api/wishlist/${userId}`
         );
 
         setWishlist(response.data.wishlist?.products || []);
@@ -38,7 +39,7 @@ function Wishlist() {
 
   const handleRemoveFromWishlist = async (productId) => {
     try {
-      await axios.delete("http://localhost:5000/api/wishlist", {
+      await axios.delete(`${API_URL}/api/wishlist`, {
         data: {
           userId,
           productId,

@@ -10,6 +10,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ function Register() {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/users/register",
+        `${API_URL}/api/users/register`,
         {
           name,
           email,

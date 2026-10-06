@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/CartContext";
 import "./ProductDetails.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function ProductDetails() {
   const { id } = useParams();
@@ -21,7 +22,7 @@ const [error, setError] = useState("");
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/products/${id}`
+          `${API_URL}/api/products/${id}`
         );
 
         setProduct(response.data.product || response.data);
@@ -40,7 +41,7 @@ const [error, setError] = useState("");
   const fetchReviews = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/reviews/product/${id}`
+        `${API_URL}/api/reviews/product/${id}`
       );
 
       setReviews(response.data.reviews || []);
@@ -70,7 +71,7 @@ const handleSubmitReview = async (e) => {
 
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/reviews",
+      `${API_URL}/api/reviews`,
       {
         userId,
         productId: id,
@@ -85,13 +86,13 @@ const handleSubmitReview = async (e) => {
 
     // Refresh reviews
     const reviewsResponse = await axios.get(
-  `http://localhost:5000/api/reviews/product/${id}`
+  `${API_URL}/api/reviews/product/${id}`
 );
 
 setReviews(reviewsResponse.data.reviews || []);
 
 const productResponse = await axios.get(
-  `http://localhost:5000/api/products/${id}`
+  `${API_URL}/api/products/${id}`
 );
 
 setProduct(productResponse.data.product || productResponse.data);
@@ -107,7 +108,7 @@ setProduct(productResponse.data.product || productResponse.data);
 const handleDeleteReview = async (reviewId) => {
   try {
     await axios.delete(
-      `http://localhost:5000/api/reviews/${reviewId}`
+      `${API_URL}/api/reviews/${reviewId}`
     );
 
     setReviews((currentReviews) =>
@@ -115,7 +116,7 @@ const handleDeleteReview = async (reviewId) => {
     );
 
     const productResponse = await axios.get(
-      `http://localhost:5000/api/products/${id}`
+      `${API_URL}/api/products/${id}`
     );
 
     setProduct(productResponse.data.product || productResponse.data);
@@ -135,7 +136,7 @@ const handleAddToWishlist = async () => {
 
   try {
     const response = await axios.post(
-      "http://localhost:5000/api/wishlist",
+      `${API_URL}/api/wishlist`,
       {
         userId,
         productId: id,

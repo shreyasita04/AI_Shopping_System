@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Orders.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -20,7 +21,7 @@ function Orders() {
   const fetchOrders = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/orders/user/${userId}`
+        `${API_URL}/api/orders/user/${userId}`
       );
 
       setOrders(response.data.orders || []);

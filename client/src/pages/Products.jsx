@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useCart } from "../context/CartContext";
 import "./Products.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Products() {
   const { addToCart } = useCart();
@@ -14,7 +15,7 @@ function Products() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/products"
+          `${API_URL}/api/products`
         );
 
         setProducts(response.data.products || response.data);

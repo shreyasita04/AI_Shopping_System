@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./ForgotPassword.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function ForgotPassword() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/reset-password",
+        `${API_URL}/api/users/reset-password`,
         {
           email,
           newPassword,

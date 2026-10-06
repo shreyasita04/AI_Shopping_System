@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Home.css";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Home() {
   const [products, setProducts] = useState([]);
@@ -10,7 +11,7 @@ function Home() {
     const fetchFeaturedProducts = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/products"
+          `${API_URL}/api/products`
         );
 
         const productList = response.data.products || response.data;

@@ -12,6 +12,7 @@ function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [orderMessage, setOrderMessage] = useState(""); 
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const API_URL = import.meta.env.VITE_API_URL;
   const handlePlaceOrder = async () => {
   if (!shippingAddress || !paymentMethod) {
     setOrderMessage("Please enter your address and select a payment method.");
@@ -20,7 +21,7 @@ function Checkout() {
 
   try {
 const response = await axios.post(
-  "http://localhost:5000/api/orders",
+  `${API_URL}/api/orders`,
   {
     userId,
     items: cartItems,
@@ -31,7 +32,7 @@ const response = await axios.post(
 const orderId = response.data.order._id;
 
 const paymentResponse = await axios.post(
-  "http://localhost:5000/api/payments",
+  `${API_URL}/api/payments`,
   {
     user: userId,
     order: orderId,
